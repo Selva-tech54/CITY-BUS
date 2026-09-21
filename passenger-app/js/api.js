@@ -1,5 +1,6 @@
 // TransitNow API Client
-const API_BASE = '';
+// Automatically uses current origin, or custom backend URL if deployed separately (e.g. Vercel + Render/Railway)
+const API_BASE = window.TRANSITNOW_API_URL || localStorage.getItem('transitnow_backend_url') || '';
 
 export async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('transitnow_passenger_token');

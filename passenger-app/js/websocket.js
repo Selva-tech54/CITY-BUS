@@ -17,9 +17,19 @@ export class TransitWebSocket {
   }
 
   connect() {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.host;
-    const wsUrl = `${protocol}//${host}/ws/transit`;
+    let wsUrl = window.TRANSITNOW_WS_URL || localStorage.getItem('transitnow_ws_url');
+    if (!wsUrl) {
+      const customApi = window.TRANSITNOW_API_URL || localStorage.getItem('transitnow_backend_url');
+      if (customApi) {
+        const urlObj = new URL(customApi, window.location.href);
+        const wsProto = urlObj.protocol === 'https:' ? 'wss:' : 'ws:';
+        wsUrl = `${wsProto}//${urlObj.host}/ws/transit`;
+      } else {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const host = window.location.host;
+        wsUrl = `${protocol}//${host}/ws/transit`;
+      }
+    }
 
     console.log(`[WebSocket] Connecting to ${wsUrl}...`);
     this.socket = new WebSocket(wsUrl);

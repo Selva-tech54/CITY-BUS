@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/index.py" },
+    { "src": "/ws/(.*)", "dest": "/api/index.py" },
+
+    { "src": "/", "dest": "/passenger-app/index.html" },
+
+    { "src": "/passenger", "dest": "/passenger-app/index.html" },
+    { "src": "/passenger/login", "dest": "/passenger-app/login.html" },
+    { "src": "/passenger/register", "dest": "/passenger-app/register.html" },
+    { "src": "/passenger/profile", "dest": "/passenger-app/profile.html" },
+    { "src": "/passenger/tickets", "dest": "/passenger-app/tickets.html" },
+    { "src": "/passenger/(.*)", "dest": "/passenger-app/$1" },
+
+    { "src": "/driver-app", "dest": "/driver-app/dashboard.html" },
+    { "src": "/driver-app/login", "dest": "/driver-app/login.html" },
+    { "src": "/driver-app/trip", "dest": "/driver-app/trip.html" },
+    { "src": "/driver-app/profile", "dest": "/driver-app/profile.html" },
+    { "src": "/driver-app/(.*)", "dest": "/driver-app/$1" },
+
+    { "src": "/operations", "dest": "/operations-app/index.html" },
+    { "src": "/operations/routes", "dest": "/operations-app/routes.html" },
+    { "src": "/operations/route-create", "dest": "/operations-app/route-create.html" },
+    { "src": "/operations/route-edit", "dest": "/operations-app/route-edit.html" },
+    { "src": "/operations/buses", "dest": "/operations-app/buses.html" },
+    { "src": "/operations/drivers", "dest": "/operations-app/drivers.html" },
+    { "src": "/operations/trips", "dest": "/operations-app/trips.html" },
+    { "src": "/operations/(.*)", "dest": "/operations-app/$1" }
+  ]
+}

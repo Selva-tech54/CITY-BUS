@@ -1,4 +1,6 @@
 // Driver Application Dedicated API Client
+const API_BASE = window.TRANSITNOW_API_URL || localStorage.getItem('transitnow_backend_url') || '';
+
 export async function driverApiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('transitnow_driver_token');
   const headers = {
@@ -13,7 +15,7 @@ export async function driverApiRequest(endpoint, options = {}) {
   };
 
   try {
-    const res = await fetch(endpoint, config);
+    const res = await fetch(`${API_BASE}${endpoint}`, config);
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       throw new Error(data.detail || data.message || `Request failed (${res.status})`);
